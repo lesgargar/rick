@@ -1,0 +1,18 @@
+#gameCanvas {
+    box-shadow: 10px 10px 20px black;
+}
+
+h1{
+    display: flex;
+    text-align: center;
+    font-family: comic sans MS;
+    color: purple;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+    background: linear-gradient(0deg, rgb(189, 85, 187) 0%, rgb(120, 222, 95) 100%);
+}
