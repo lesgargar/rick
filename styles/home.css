@@ -8,7 +8,7 @@
 main {
     height: 100vh;
     background-color: blueviolet;
-    background-image: url("./images/homeImage.jpg");
+    background-image: url("../images/homeImage.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;

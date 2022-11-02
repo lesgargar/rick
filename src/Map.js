@@ -4,7 +4,7 @@ and instructions about how to draw in canvas depending on what
 image represents an element in the array
 */
 class TileMap{
-    constructor(tileSize){
+    constructor(tileSize,map){
         this.tileSize = tileSize;
 
         this.floor = new Image()
@@ -12,6 +12,10 @@ class TileMap{
 
         this.wall = new Image()
         this.wall.src = "../images/wall.jpg"
+        this.map = map
+
+        this.portal = new Image()
+        this.portal.src = "../images/portal0.gif"
     //aqui las imagenes de los portales y obstaculos
 
     }
@@ -27,20 +31,20 @@ number 6 = portal to map 4
 number 7 = portal to map 5
 number 8 = portal to win the game 
 */
-map = [
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 
-    [1,0,0,4,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,1,1,1,1,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-]
+// map = [
+//     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 
+//     [1,0,0,4,0,0,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,0,0,0,0,1,1,1,1,0,0,1],
+//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,0,1,1,1,1,1,1,1,1,1,1],
+//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+//     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+// ]
 
 // to start drawing we have to iterate trow the array by a nested "for loop"
     draw(ctx){
@@ -48,16 +52,26 @@ map = [
             for(let column = 0; column < this.map[row].length; column++){
                 let tile = this.map[row][column];
                 if( tile === 1){
-                    this.#drawWall( column,row,this.tileSize);
+                    this.drawWall( column,row,this.tileSize);
                 }
                 else if (tile === 0){
-                    this.#drawFloor(column, row, this.tileSize)
-                }// aqui se declaran los portales         
+                    this.drawFloor(column, row, this.tileSize)
+                }else if(
+                    tile === 2 ||
+                    tile === 3 ||
+                    tile === 5 ||
+                    tile === 6 ||
+                    tile === 7 
+                    ){
+                        this.drawPortal(column, row, this.tileSize)
+                    }
+
+
             }
         }
     }
 
-    #drawFloor(column,row,size){
+    drawFloor(column,row,size){
         ctx.drawImage(
             this.floor, 
             column * this.tileSize,
@@ -66,9 +80,19 @@ map = [
             size
             )
     }
-    #drawWall(column,row,size){
+    drawWall(column,row,size){
         ctx.drawImage(
             this.wall, 
+            column * this.tileSize,
+            row * this.tileSize,
+            size, 
+            size
+            )
+    }
+
+    drawPortal(column,row,size){
+        ctx.drawImage(
+            this.portal, 
             column * this.tileSize,
             row * this.tileSize,
             size, 
@@ -136,9 +160,43 @@ map = [
             const tile = this.map[row][column];
             if(tile === 1) {
                 return true;
-            }else {
+            }else { 
+                //change between the maps 
+                if(tile === 2){
+                    this.map = map1
+                    return true
+                }
+                if(tile === 3){
+                    this.map = map2
+                    return true
+                }
+                if(tile === 5){
+                    this.map = map3
+                    return true
+                }
+                if(tile === 6){
+                    this.map = map2
+                    return true
+                }
+                if(tile === 7){
+                    this.map = map5
+                    this.setCanvasSize(canvas);
+                    return true
+                }
+                if(tile === 9){
+                    this.map = map1
+                    return true
+                }
+                if(tile === 8){
+                    window.location.href = "win.html";
+                    return true
+                }
+
+
                 return false
             }
+
+
         }
     }
 }

@@ -5,7 +5,7 @@ class Rick {
         this.tileSize = tileSize;
         this.velocity = velocity;
         this.tileMap = tileMap;
-        this.#loadRickImages();
+        this.loadRickImages();
 
         this.currentMovingDirection = null;
         this. requestedMovingDirection = null;
@@ -13,14 +13,18 @@ class Rick {
         //animation
         this.rickAnimationTimerDefault = 10;
         this.rickAnimationTimer = null;
+        this.isWalk = false
 
-        document.addEventListener("keydown", this.#keydown)
+        document.addEventListener("keydown", this.keydown)
+        document.addEventListener("keyup", this.keyup)
 
         }
         //here indicated how to draw the character 
         draw(){
-            this.#move();
-            this.#animate();
+            if(this.isWalk){
+                this.move();
+            }
+            this.animate();
             ctx.drawImage(
                 this.rickImages[this.rickImageIndex], 
                 this.x, 
@@ -30,19 +34,8 @@ class Rick {
                 )
         }
         
-        #loadRickImages(){
-            const rickFront1 = new Image();
-            rickFront1.src = "images/front1.png";
-        
-            const rickFront2 = new Image();
-            rickFront2.src = "images/front2.png";
-        
-            const rickFront3 = new Image();
-            rickFront3.src = "images/front1.png";
-
-            const rickFront4 = new Image();
-            rickFront4.src = "images/front3.png";
-
+        //images front side of character 
+        loadRickImages(){
             this.rickImages = [
                 rickFront1,
                 rickFront2,
@@ -52,44 +45,89 @@ class Rick {
 
             this.rickImageIndex = 0;
         }
-
         //keydown says, if an specific key is pressed, will check what is the current direction
         //and assign the new direction according to the key pressed
-        #keydown =(event)=>{
+        keydown =(event)=>{
             //up 
             if(event.keyCode == 38){
-                if(this.currentMovingDirection == MovingDirection.down){
-                    this.currentMovingDirection = MovingDirection.up;
-                }
+                rickFront1.src = "../images/back1.png";
+                rickFront2.src = "../images/back2.png";
+                rickFront3.src = "../images/back1.png";
+                rickFront4.src = "../images/back3.png";
+
+                this.rickImages = [
+                    rickFront1,
+                    rickFront2,
+                    rickFront3,
+                    rickFront4
+                ];
                 this.requestedMovingDirection = MovingDirection.up;
+                this.isWalk = true;
             }
             //down
             if(event.keyCode == 40){
-                if(this.currentMovingDirection == MovingDirection.up){
-                    this.currentMovingDirection = MovingDirection.down;
-                }
+                rickFront1.src = "../images/front1.png";
+                rickFront2.src = "../images/front2.png";
+                rickFront3.src = "../images/front1.png";
+                rickFront4.src = "../images/front3.png";
+
+                this.rickImages = [
+                    rickFront1,
+                    rickFront2,
+                    rickFront3,
+                    rickFront4
+                ];
+
                 this.requestedMovingDirection = MovingDirection.down;
+                this.isWalk = true;
             }
             //left
             if(event.keyCode == 37){
-                if(this.currentMovingDirection == MovingDirection.right){
-                    this.currentMovingDirection = MovingDirection.left;
-                }
+                rickFront1.src = "../images/left1.png";
+                rickFront2.src = "../images/left2.png";
+                rickFront3.src = "../images/left1.png";
+                rickFront4.src = "../images/left3.png";
+
+                this.rickImages = [
+                    rickFront1,
+                    rickFront2,
+                    rickFront3,
+                    rickFront4
+                ];
+
                 this.requestedMovingDirection = MovingDirection.left;
+                this.isWalk = true;
             }
             //right
             if(event.keyCode == 39){
-                if(this.currentMovingDirection == MovingDirection.left){
-                this.currentMovingDirection = MovingDirection.right;
-                }
+                rickFront1.src = "../images/right1.png";
+                rickFront2.src = "../images/right2.png";
+                rickFront3.src = "../images/right1.png";
+                rickFront4.src = "../images/right3.png";
+
+                this.rickImages = [
+                    rickFront1,
+                    rickFront2,
+                    rickFront3,
+                    rickFront4
+                ];
+
                 this.requestedMovingDirection = MovingDirection.right;
+                this.isWalk = true;
             }
         }
 
-        #move(){
-            if(this.currentMovingDirection !== this.requestedMovingDirection){
-                console.log("pero1",Number.isInteger(this.y/this.tileSize))
+        keyup = (event)=>{
+            if(event.keyCode == 38 || 
+                event.keyCode == 40 ||
+                event.keyCode == 37 ||
+                event.keyCode == 39){
+                    this.isWalk = false 
+                }
+        }
 
+        move(){
+            if(this.currentMovingDirection !== this.requestedMovingDirection){
                 if( 
                 Number.isInteger(this.x/this.tileSize) && 
                 Number.isInteger(this.y/this.tileSize)
@@ -99,7 +137,7 @@ class Rick {
                             this.x, 
                             this.y, 
                             this.requestedMovingDirection
-                        )
+                        ) 
                     )
 
                     this.currentMovingDirection = this.requestedMovingDirection;
@@ -112,9 +150,10 @@ class Rick {
                 this.y, 
                 this.currentMovingDirection
                 )
-            ){
+            ){  
+                console.log("k pasa")
                 return;
-            }
+            } 
             else if(this.currentMovingDirection != null && 
                 this.rickAnimationTimer == null){
                     this.rickAnimationTimer = this.rickAnimationTimerDefault;
@@ -133,14 +172,11 @@ class Rick {
                 case MovingDirection.right:
                     this.x += this.velocity;
                     break;
-                default:
-                    this.y = this.y
-                    this.x=this.x
-                    break
+              
             }
         }
 
-        #animate(){
+        animate(){
         if(this.rickAnimationTimer == null){
             return; //will do nothing
         }
