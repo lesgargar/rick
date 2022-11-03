@@ -1,0 +1,24 @@
+.image{
+    background-image: url("../images/Bathroom.jpeg");
+    background-color: rgb(246, 244, 247);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ending {
+    background-color: rgba(254, 254, 254, 0.4);
+    height: 290px;
+    width: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#image{
+    height: 40px;
+    width: 100px;
+}

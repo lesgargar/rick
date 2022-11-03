@@ -6,7 +6,7 @@ h1{
     display: flex;
     text-align: center;
     font-family: comic sans MS;
-    color: purple;
+    color: rgb(240, 227, 46);
 }
 
 body {
@@ -14,5 +14,23 @@ body {
     justify-content: center;
     overflow: hidden;
     height: 100vh;
-    background: linear-gradient(0deg, rgb(189, 85, 187) 0%, rgb(120, 222, 95) 100%);
+    background: linear-gradient(0deg, rgb(239, 170, 227) 0%, rgb(73, 3, 116) 100%);
+}
+
+#game{
+    display: flex;
+    flex-direction: row;
+}
+
+.life-counter {
+display: flex;
+align-items: center;
+flex-direction: column;
+width: 100px;
+
+}
+
+.life-counter> span{
+    font-size: 30px;
+    color:rgb(240, 216, 31);
 }

@@ -8,43 +8,22 @@ class TileMap{
         this.tileSize = tileSize;
 
         this.floor = new Image()
-        this.floor.src="../images/floor.jpeg"
+        this.floor.src="../images/floor1.png"
+
+        //here walls
 
         this.wall = new Image()
         this.wall.src = "../images/wall.jpg"
+
         this.map = map
 
-        this.portal = new Image()
-        this.portal.src = "../images/portal0.gif"
-    //aqui las imagenes de los portales y obstaculos
-
+        this.portal1 = new Image()
+        this.portal1.src = "../images/portal0.png"
+        this.portal2 = new Image()
+        this.portal2.src =  "../images/portal1.png"
+        this.portal = this.portal1
     }
 
-/* map 1
-number 1 = wall
-number 0 = floor
-number 4 = rick
-number 2 = portal to map 1
-number 3 = portal to map 2
-number 5 = portal to map 3
-number 6 = portal to map 4
-number 7 = portal to map 5
-number 8 = portal to win the game 
-*/
-// map = [
-//     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 
-//     [1,0,0,4,0,0,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,0,0,0,0,1,1,1,1,0,0,1],
-//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,0,1,1,1,1,1,1,1,1,1,1],
-//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-//     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-//     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-// ]
 
 // to start drawing we have to iterate trow the array by a nested "for loop"
     draw(ctx){
@@ -61,7 +40,9 @@ number 8 = portal to win the game
                     tile === 3 ||
                     tile === 5 ||
                     tile === 6 ||
-                    tile === 7 
+                    tile === 7 ||
+                    tile === 8 ||
+                    tile === 9 
                     ){
                         this.drawPortal(column, row, this.tileSize)
                     }
@@ -79,6 +60,7 @@ number 8 = portal to win the game
             size, 
             size
             )
+        
     }
     drawWall(column,row,size){
         ctx.drawImage(
@@ -91,6 +73,9 @@ number 8 = portal to win the game
     }
 
     drawPortal(column,row,size){
+        if(time % 8 === 0){
+            this.portal =  this.portal === this.portal2 ? this.portal1 : this.portal2
+        }
         ctx.drawImage(
             this.portal, 
             column * this.tileSize,
@@ -164,27 +149,43 @@ number 8 = portal to win the game
                 //change between the maps 
                 if(tile === 2){
                     this.map = map1
+                    this.floor.src="../images/floor1.png"
+                    this.wall.src = "../images/wall.jpg"
+                    livesCounter.innerHTML = Number(livesCounter.innerText)-1
+
                     return true
                 }
                 if(tile === 3){
                     this.map = map2
+                    this.floor.src="../images/floor2.png"
+                    this.wall.src = "../images/wall2.png"
                     return true
                 }
                 if(tile === 5){
                     this.map = map3
+                    this.floor.src="../images/floor3.png"
+                    this.wall.src = "../images/wall3.png"
                     return true
                 }
                 if(tile === 6){
-                    this.map = map2
+                    this.map = map4
+                    this.floor.src="../images/floor4.png"
+                    this.wall.src = "../images/wall4.png"
                     return true
                 }
                 if(tile === 7){
                     this.map = map5
-                    this.setCanvasSize(canvas);
+                    this.floor.src="../images/floor5.png"
+                    this.wall.src = "../images/wall5.png"
                     return true
                 }
                 if(tile === 9){
                     this.map = map1
+
+                    livesCounter.innerHTML = Number(livesCounter.innerText)-1
+
+                    this.floor.src="../images/floor1.png"
+                    this.wall.src = "../images/wall.jpg"
                     return true
                 }
                 if(tile === 8){

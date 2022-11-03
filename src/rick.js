@@ -151,7 +151,6 @@ class Rick {
                 this.currentMovingDirection
                 )
             ){  
-                console.log("k pasa")
                 return;
             } 
             else if(this.currentMovingDirection != null && 
@@ -171,8 +170,7 @@ class Rick {
                     break;
                 case MovingDirection.right:
                     this.x += this.velocity;
-                    break;
-              
+                    break;             
             }
         }
 

@@ -10,15 +10,23 @@
 
 </head>
 <body>
-    <div>
-    <canvas id = "gameCanvas"></canvas>
+    <div id="game">
+        <div class="life-counter">
+            <h1>time</h1>
+            <span id="time-counter">120</span>
+        </div> 
+        <canvas id = "gameCanvas"></canvas>
+        <div class="life-counter">
+            <h1>lifes</h1>
+            <span id="lives-counter"> 3 </span>
+        </div> 
+    
+    </div>
 
-        <script src = "../src/general.js"></script> 
+    <script src = "../src/general.js"></script> 
         <script src = "../src/levels.js"></script>   
         <script src = "../src/Map.js"></script>
         <script src = "../src/rick.js"></script>
-        <script src = "../src/movement.js"></script>
         <script src = "../src/game.js"></script>
-    </div>
 </body>
 </html>

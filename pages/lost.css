@@ -1,0 +1,26 @@
+.looser{
+    background-image: url(../images/lost.jpeg);
+    background-color: rgb(158, 107, 183);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.transparency{
+background-color: rgba(64, 255, 255, 40%);
+}
+
+.div-styles{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#retry{
+    height: 40px;
+    width: 100px;
+}
