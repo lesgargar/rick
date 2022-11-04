@@ -33,3 +33,7 @@ rickFront3.src = "../images/front1.png";
 const rickFront4 = new Image();
 rickFront4.src = "../images/front3.png";
 
+const audio = new Audio();
+audio.src = "../audio/music.mp3"
+audio.loop = true;
+audio.volume = 0.1;

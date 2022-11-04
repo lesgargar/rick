@@ -18,6 +18,8 @@ main {
 }
 
 .menu{
+    font-size: 30px;
+    color: beige;
     background-color: rgba(10, 2, 10, 50%);
     height: 290px;
     width: 540px;
@@ -31,5 +33,13 @@ main {
     height: 150px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around
+    justify-content: space-around;
+}
+
+
+.button-flex button{
+    background-color: chartreuse;
+    font-size: 20px;
+    height: 50px;
+    width: 100px;
 }
